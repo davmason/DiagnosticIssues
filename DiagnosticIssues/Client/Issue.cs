@@ -10,13 +10,17 @@ namespace DiagnosticIssues.Client
             _issue = issue;
         }
 
-        public int Id => _issue.Id;
+        public int Number => _issue.Number;
+        
         public string Title => _issue.Title;
+        
         public User Assignee => new User(_issue.Assignee);
 
         public IEnumerable<string> Labels => _issue.Labels.Select(x => x.Name);
 
         public string Milestone => _issue.Milestone?.Title;
+
+        public DateTimeOffset CreatedAt => _issue.CreatedAt;
 
         public override bool Equals(object obj)
         {
@@ -30,17 +34,17 @@ namespace DiagnosticIssues.Client
             }
 
             Issue other = (Issue)obj;
-            return Id == other.Id;
+            return Number == other.Number;
         }
 
         public override int GetHashCode()
         {
-            return Id;
+            return Number;
         }
 
         public override string ToString()
         {
-            return $"{Id}: {Title}";
+            return $"{Number}: {Title}";
         }
     }
 }

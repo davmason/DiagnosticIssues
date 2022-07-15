@@ -9,6 +9,6 @@
             _user = user;
         }
 
-        public string Name => _user.Name;
+        public string Name => _user?.Login;
     }
 }
