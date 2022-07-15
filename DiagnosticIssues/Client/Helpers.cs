@@ -8,16 +8,11 @@ using System.Threading.Tasks;
 
 namespace DiagnosticIssues.Client
 {
-    public static class Helpers
+    public static partial class Helpers
     {
         private static Lazy<GitHubClient> s_client = new Lazy<GitHubClient>(() =>
         {
-            string mySuperSecretKey = Environment.GetEnvironmentVariable("MySuperSecretKey");
-            if (mySuperSecretKey == null)
-            {
-                throw new InvalidDataException();
-            }
-
+            string mySuperSecretKey = GetSecret();
             Credentials credentials = new Credentials(mySuperSecretKey);
             ICredentialStore credentialStore = new InMemoryCredentialStore(credentials);
             return new GitHubClient(new ProductHeaderValue("DiagnosticsIssues"), credentialStore);
